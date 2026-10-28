@@ -1,0 +1,18 @@
+name: Check integration
+on:
+  push:
+  pull_request:
+jobs:
+  source-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Parse Python source
+        run: python -m compileall -q custom_components/tenmicron_mount
+      - name: Verify feature gates
+        run: python -m unittest discover -s tests -v
+      - name: Validate JSON files
+        run: python -c "import json,pathlib; [json.loads(p.read_text()) for p in pathlib.Path('custom_components/tenmicron_mount').glob('*.json')]"

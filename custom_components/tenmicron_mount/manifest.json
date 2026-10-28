@@ -1,0 +1,14 @@
+{
+  "domain": "tenmicron_mount",
+  "name": "10Micron Mount Monitor",
+  "version": "0.6.0",
+  "documentation": "https://github.com/Z0472/ha-10micron-mount",
+  "config_flow": true,
+  "iot_class": "local_polling",
+  "requirements": [],
+  "codeowners": [
+    "@Z0472"
+  ],
+  "issue_tracker": "https://github.com/Z0472/ha-10micron-mount/issues",
+  "integration_type": "device"
+}

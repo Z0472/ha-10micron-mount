@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "10Micron mount connection",
+        "data": {
+          "host": "Mount IP address",
+          "port": "TCP port",
+          "interval": "Polling interval (seconds)",
+          "timeout": "TCP timeout (seconds)",
+          "temperature_entity": "Temperature sensor entity (required for refraction)",
+          "pressure_entity": "Pressure sensor entity (required for refraction)",
+          "ntp_servers": "NTP server hostnames/IPs (comma-separated; required for time functions)",
+          "park_alt": "Reference park altitude (degrees, optional)",
+          "park_az": "Reference park azimuth (degrees, optional)",
+          "park_tolerance": "Park tolerance (degrees)",
+          "slew_grace_seconds": "Slew/dither grace time in seconds",
+          "native_controls_enabled": "Allow native UTC/refraction write commands (explicit opt-in)",
+          "legacy_writers_disabled_confirmed": "I confirm that other writers to mount UTC/refraction are disabled",
+          "auto_time_sync_enabled": "Automatically synchronize UTC after qualified offline-to-online transition",
+          "auto_refraction_enabled": "Automatically update refraction from fresh HA sensor measurements",
+          "time_sync_enabled": "Enable mount clock checks and optional UTC synchronization (requires NTP)",
+          "refraction_enabled": "Enable refraction preview/control (requires temperature and pressure sensors)"
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Invalid configuration"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "10Micron mount settings",
+        "data": {
+          "host": "Mount IP address",
+          "port": "TCP port",
+          "interval": "Polling interval (seconds)",
+          "timeout": "TCP timeout (seconds)",
+          "temperature_entity": "Temperature sensor entity (required for refraction)",
+          "pressure_entity": "Pressure sensor entity (required for refraction)",
+          "ntp_servers": "NTP server hostnames/IPs (comma-separated; required for time functions)",
+          "park_alt": "Reference park altitude (degrees, optional)",
+          "park_az": "Reference park azimuth (degrees, optional)",
+          "park_tolerance": "Park tolerance (degrees)",
+          "slew_grace_seconds": "Slew/dither grace time in seconds",
+          "native_controls_enabled": "Allow native UTC/refraction write commands (explicit opt-in)",
+          "legacy_writers_disabled_confirmed": "I confirm that other writers to mount UTC/refraction are disabled",
+          "auto_time_sync_enabled": "Automatically synchronize UTC after qualified offline-to-online transition",
+          "auto_refraction_enabled": "Automatically update refraction from fresh HA sensor measurements",
+          "time_sync_enabled": "Enable mount clock checks and optional UTC synchronization (requires NTP)",
+          "refraction_enabled": "Enable refraction preview/control (requires temperature and pressure sensors)"
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Invalid configuration"
+    }
+  }
+}
