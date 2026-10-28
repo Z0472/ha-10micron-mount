@@ -16,6 +16,8 @@ from .refraction_control import valid_reading
 from .watchdog import evaluate as evaluate_tracking_watchdog
 from .capabilities import feature_enabled, write_armed
 from .meridian import build_meridian_data
+from .clock_feedback import capture_check, notification
+from homeassistant.components.persistent_notification import async_create as create_notification
 
 _LOGGER = logging.getLogger(__name__)
 PLATFORMS = ["sensor", "binary_sensor", "button"]
@@ -62,6 +64,7 @@ class MountCoordinator(DataUpdateCoordinator):
         self.last_action_ok = None
         self.last_action_result = None
         self.native_clock_offset_ms = None
+        self.last_clock_check = None
         self.native_refraction_deltas = None
         self.auto_controller = None
         # Keep added meridian polling independent of the 10-second tracking watchdog.
@@ -93,6 +96,24 @@ class MountCoordinator(DataUpdateCoordinator):
             try: await asyncio.wait_for(writer.wait_closed(),1)
             except (OSError,asyncio.TimeoutError): pass
 
+    def _publish_clock_check(self, result=None, error=None, *, source="manual"):
+        """Update dedicated visible entities and notify the user on manual checks."""
+        self.last_clock_check = capture_check(result, error)
+        self.async_update_listeners()
+        if source != "manual":
+            return
+        try:
+            title, message = notification(
+                self.last_clock_check, getattr(self.hass.config, "language", "en")
+            )
+            create_notification(
+                self.hass, message, title=title,
+                notification_id=f"tenmicron_clock_check_{self.entry.entry_id}",
+            )
+        except Exception:
+            # HA UI notifications must never change the outcome of a mount query.
+            _LOGGER.exception("Cannot publish 10Micron clock check notification")
+
     async def execute(self, operation, *, source="manual"):
         from . import time_sync, refraction_control
         config = {**self.entry.data, **self.entry.options}
@@ -122,6 +143,8 @@ class MountCoordinator(DataUpdateCoordinator):
                 else: raise ValueError(f"Unknown operation {operation}")
             self.last_action_ok=True
             self.last_action_result=result
+            if operation == "time_check":
+                self._publish_clock_check(result, source=source)
             if operation in ("time_check", "time_sync"):
                 self.native_clock_offset_ms = result.get("after_ms")
                 if self.native_clock_offset_ms is None:
@@ -133,6 +156,8 @@ class MountCoordinator(DataUpdateCoordinator):
         except Exception as exc:
             self.last_action_ok=False
             self.last_action_result={"error": str(exc),"operation":operation}
+            if operation == "time_check":
+                self._publish_clock_check(error=str(exc), source=source)
             _LOGGER.error("10Micron action %s failed: %s",operation,exc)
             self.async_update_listeners()
             raise

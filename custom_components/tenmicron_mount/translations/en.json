@@ -164,6 +164,22 @@
       },
       "meridian_transit_minutes": {
         "name": "Estimated time to meridian transit"
+      },
+      "native_time_check_result": {
+        "name": "Last clock check result",
+        "state": {
+          "ok": "Success",
+          "error": "Error"
+        }
+      },
+      "native_time_check_at": {
+        "name": "Last clock check at"
+      },
+      "native_time_check_offset_ms": {
+        "name": "Last checked mount clock offset"
+      },
+      "native_time_check_ntp_offset_ms": {
+        "name": "Last checked HA/NTP offset"
       }
     },
     "binary_sensor": {

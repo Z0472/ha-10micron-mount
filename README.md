@@ -64,3 +64,9 @@ The standalone directory layout `custom_components/tenmicron_mount/` is suitable
 Development baseline: **10Micron GM3000HPS, Control Box V3, firmware 3.4.0**. Other models and firmware variants are not yet field-verified.
 
 License: MIT. Integration domain: `tenmicron_mount`.
+
+## Manual clock check results (v0.6.3)
+
+When you press **Check mount clock (no changes)**, the integration immediately publishes a Home Assistant **persistent notification** (bell / Notifications) showing the measured mount offset in ms, NTP-to-HA host offset, NTP servers, timestamp and any error. A newer manual check replaces the prior notification instead of creating a flood. This operation **never adjusts the mount clock**.
+
+The mount device also exposes a dedicated **Last clock check result** (translated CS/EN) and separate sensors for measurement time, mount offset, and HA/NTP offset. Open the result sensor to inspect its attributes. These live sensors retain the last check in memory until Home Assistant reload/restart; HA persistent notification remains available after restart until dismissed. The original overall Last action/result entities remain unchanged. The result state is independent of unrelated mount operations.

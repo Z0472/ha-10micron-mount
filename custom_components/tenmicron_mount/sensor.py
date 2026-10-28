@@ -8,6 +8,10 @@ FIELDS = {
     "native_auto_refraction_result": ("Automatic refraction result", "mdi:weather-windy", None),
     "native_auto_refraction_at": ("Last automatic refraction attempt", "mdi:clock-outline", None),
     "watchdog_state": ("Tracking watchdog", "mdi:shield-eye-outline", None),
+    "native_time_check_result": ("Last clock check result", "mdi:clock-check-outline", None),
+    "native_time_check_at": ("Last clock check time", "mdi:clock-outline", None),
+    "native_time_check_offset_ms": ("Last checked mount offset", "mdi:clock-alert-outline", "ms"),
+    "native_time_check_ntp_offset_ms": ("Last checked NTP host offset", "mdi:clock-alert-outline", "ms"),
     "native_clock_offset_ms": ("Mount clock offset", "mdi:clock-alert-outline", "ms"),
     "native_temperature_delta_c": ("Temperature change since update", "mdi:thermometer-chevron-up", "°C"),
     "native_pressure_delta_hpa": ("Pressure change since update", "mdi:gauge", "hPa"),
@@ -49,12 +53,15 @@ class MountSensor(MountEntity, SensorEntity):
         self._attr_translation_key = key
         self._attr_unique_id = f"{entry.entry_id}_{key}"
         self._attr_icon = icon
+        if key == "native_time_check_result":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = ["ok", "error"]
         if unit:
             self._attr_native_unit_of_measurement = unit
     @property
     def available(self):
         # Persistent audit records remain available even while the mount is OFF.
-        if self.key.startswith('native_park_'):
+        if self.key.startswith('native_park_') or self.key.startswith('native_time_check_'):
             return True
         if self.key.startswith('native_auto_time_') or self.key.startswith('native_auto_refraction_'):
             return self.coordinator.auto_controller is not None
@@ -78,6 +85,17 @@ class MountSensor(MountEntity, SensorEntity):
                 'native_auto_refraction_result': last['status'],
                 'native_auto_refraction_at': last['at_utc'],
             }.get(self.key)
+        if self.key.startswith("native_time_check_"):
+            last = self.coordinator.last_clock_check
+            if last is None:
+                return None
+            key_map = {
+                "native_time_check_result": "status",
+                "native_time_check_at": "at_utc",
+                "native_time_check_offset_ms": "mount_offset_ms",
+                "native_time_check_ntp_offset_ms": "ntp_system_offset_ms",
+            }
+            return last.get(key_map[self.key])
         if self.key == "native_clock_offset_ms":
             return self.coordinator.native_clock_offset_ms
         if self.key == "native_temperature_delta_c":
@@ -99,6 +117,18 @@ class MountSensor(MountEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         audit = self.coordinator.auto_controller
+        if self.key == "native_time_check_result":
+            check = self.coordinator.last_clock_check
+            return ({
+                "checked_at_utc": check["at_utc"],
+                "mount_offset_ms": check["mount_offset_ms"],
+                "ntp_system_offset_ms": check["ntp_system_offset_ms"],
+                "ntp_servers_used": check["ntp_servers_used"],
+                "ntp_errors": check["ntp_errors"],
+                "proposed_corrections_not_applied": check["proposed_corrections"],
+                "error": check["error"],
+                "read_only": True,
+            } if check else None)
         if audit and self.key == 'native_auto_time_result':
             return {'last': audit.last_auto_time, 'history': audit.auto_time_history[-8:]}
         if audit and self.key == 'native_auto_refraction_result':

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.3 – visible clock check feedback
+
+- Show native HA persistent notification after manual read-only mount clock check (success or failure), including offset, NTP sources, and timestamp.
+- Expose independent, localized clock-check status/time/mount-offset/host-NTP-offset sensors.
+- Do not change time-sync commands, write opt-ins, automatic behavior, or existing entity unique IDs.
+- Avoid notification floods; replace only the previous manual clock-check notice.
+
+
 ## 0.6.2 – localized entities and PARK reference
 
 - Czech and English names for all sensors, binary sensors and buttons using Home Assistant translation keys.
