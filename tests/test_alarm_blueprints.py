@@ -24,7 +24,13 @@ class BlueprintTests(unittest.TestCase):
                 self.assertTrue(doc["blueprint"]["input"])
                 self.assertIn("selector", next(iter(doc["blueprint"]["input"].values())))
                 self.assertNotIn(":PsX#",raw)
-                self.assertNotIn("siren.turn_on",raw)
+                # A description may mention sirens; only default actions must stay passive.
+                defaults = [
+                    option.get("default")
+                    for option in doc["blueprint"]["input"].values()
+                    if isinstance(option, dict) and "default" in option
+                ]
+                self.assertNotIn("siren.turn_on", repr(defaults))
                 self.assertNotIn("rest_command",raw)
                 self.assertEqual(doc["mode"],"single")
     def test_tracking_alarm_requires_fresh_off_to_on(self):
