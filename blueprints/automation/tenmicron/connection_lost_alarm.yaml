@@ -1,0 +1,46 @@
+blueprint:
+  name: "10Micron – mount connection lost"
+  description: >-
+    Optional connectivity alert when a 10Micron Mount state sensor becomes
+    unavailable or unknown for a sustained period. Enable only if the mount
+    should normally be ONLINE. Normal power-off also makes the sensor unavailable.
+    This is separate from unexpected tracking-stop detection.
+  domain: automation
+  input:
+    mount_state:
+      name: 10Micron mount state sensor
+      description: Select the Mount state sensor (sensor, not binary_sensor).
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    outage_duration:
+      name: Minimum outage duration
+      default:
+        minutes: 2
+      selector:
+        duration: {}
+    alert_actions:
+      name: Actions when communications remain unavailable
+      description: Choose a persistent notification, mobile alert or a physical siren.
+      default:
+        - action: persistent_notification.create
+          data:
+            title: "10Micron – communications lost"
+            message: "The mount state sensor is unavailable. Check power and TCP connection."
+      selector:
+        action: {}
+
+triggers:
+  - trigger: state
+    entity_id: !input mount_state
+    to: "unavailable"
+    for: !input outage_duration
+  - trigger: state
+    entity_id: !input mount_state
+    to: "unknown"
+    for: !input outage_duration
+
+actions: !input alert_actions
+mode: single
+max_exceeded: silent

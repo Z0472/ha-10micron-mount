@@ -1,0 +1,44 @@
+blueprint:
+  name: "10Micron – unexpected tracking stop alarm"
+  description: >-
+    Optional response when a 10Micron tracking-fault binary sensor changes
+    from off to on. Select a siren, mobile notification, or other HA actions
+    in the automation editor. No mount commands. Does not trigger on an
+    already-active alarm when HA starts.
+  domain: automation
+  input:
+    tracking_fault:
+      name: 10Micron tracking fault sensor
+      description: Select the Unexpected tracking stop binary sensor for your mount.
+      selector:
+        entity:
+          filter:
+            - domain: binary_sensor
+    debounce:
+      name: Confirmation duration
+      description: Wait for this long in the alarm state before running actions.
+      default:
+        seconds: 0
+      selector:
+        duration: {}
+    alarm_actions:
+      name: What should happen when tracking unexpectedly stops?
+      description: Configure siren.turn_on, mobile notification, or any other HA actions.
+      default:
+        - action: persistent_notification.create
+          data:
+            title: "10Micron – tracking stopped"
+            message: "The mount reported an unexpected tracking stop. Check its state."
+      selector:
+        action: {}
+
+triggers:
+  - trigger: state
+    entity_id: !input tracking_fault
+    from: "off"
+    to: "on"
+    for: !input debounce
+
+actions: !input alarm_actions
+mode: single
+max_exceeded: silent
