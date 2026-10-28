@@ -12,6 +12,12 @@ Community-maintained **experimental** local TCP integration for 10Micron mounts.
 - Optional automatic refraction refresh upon connection and significant sensor changes.
 - All native writes and all automatic operations are **OFF by default**.
 
+## Integration icon
+
+An original astronomy mount icon is included at `custom_components/tenmicron_mount/brand/icon.png`. Home Assistant 2026.3+ reads the icon directly from this location, including manual installations. The image does not use the 10Micron manufacturer's logo and does not imply an official integration.
+
+After updating, restart HA Core and refresh the browser. Some HACS versions may still display a placeholder in the HACS catalog even though the icon works on the Home Assistant integrations/device pages.
+
 ## Manual installation (without HACS)
 
 1. Download this project's ZIP and extract it.

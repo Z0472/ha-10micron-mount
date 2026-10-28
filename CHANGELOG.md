@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.4 – integration brand icon
+
+- Include an original transparent 256×256 PNG icon in `custom_components/tenmicron_mount/brand/icon.png`.
+- Home Assistant 2026.3+ displays local brand assets without a separate Home Assistant Brands PR.
+- No changes to mount commands, polling, config or entity identifiers.
+
+
 ## 0.6.3 – visible clock check feedback
 
 - Show native HA persistent notification after manual read-only mount clock check (success or failure), including offset, NTP sources, and timestamp.
