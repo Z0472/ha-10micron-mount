@@ -1,0 +1,61 @@
+{
+  "title": "10Micron Mount Monitor",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Připojení montáže 10Micron",
+        "data": {
+          "host": "IP adresa nebo název montáže",
+          "port": "TCP port montáže",
+          "interval": "Interval načítání telemetrie (sekundy)",
+          "timeout": "Časový limit TCP komunikace (sekundy)",
+          "temperature_entity": "Entita teplotního čidla v HA (vyžadována pro refrakci)",
+          "pressure_entity": "Entita tlakového čidla v HA (vyžadována pro refrakci)",
+          "ntp_servers": "NTP servery – oddělené čárkami (vyžadovány pro čas)",
+          "park_alt": "Referenční výška polohy PARK ve stupních (volitelné)",
+          "park_az": "Referenční azimut polohy PARK ve stupních (volitelné)",
+          "park_tolerance": "Tolerance polohy PARK (stupně)",
+          "slew_grace_seconds": "Tolerance doby přejezdu/ditheringu (sekundy)",
+          "native_controls_enabled": "Povolit příkazy pro změnu času a refrakce",
+          "legacy_writers_disabled_confirmed": "Potvrzuji vypnutí ostatních automatizací měnících čas/refrakci montáže",
+          "auto_time_sync_enabled": "Automaticky synchronizovat čas po ověřeném opětovném připojení montáže",
+          "auto_refraction_enabled": "Automaticky aktualizovat refrakci z čidel Home Assistanta",
+          "time_sync_enabled": "Povolit kontrolu a synchronizaci času (vyžaduje NTP)",
+          "refraction_enabled": "Povolit řízení refrakce (vyžaduje teplotu i tlak)"
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Neplatná konfigurace. Zkontroluj povinná pole a podmínky povolených funkcí."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Nastavení montáže 10Micron",
+        "data": {
+          "host": "IP adresa nebo název montáže",
+          "port": "TCP port montáže",
+          "interval": "Interval načítání telemetrie (sekundy)",
+          "timeout": "Časový limit TCP komunikace (sekundy)",
+          "temperature_entity": "Entita teplotního čidla v HA (vyžadována pro refrakci)",
+          "pressure_entity": "Entita tlakového čidla v HA (vyžadována pro refrakci)",
+          "ntp_servers": "NTP servery – oddělené čárkami (vyžadovány pro čas)",
+          "park_alt": "Referenční výška polohy PARK ve stupních (volitelné)",
+          "park_az": "Referenční azimut polohy PARK ve stupních (volitelné)",
+          "park_tolerance": "Tolerance polohy PARK (stupně)",
+          "slew_grace_seconds": "Tolerance doby přejezdu/ditheringu (sekundy)",
+          "native_controls_enabled": "Povolit příkazy pro změnu času a refrakce",
+          "legacy_writers_disabled_confirmed": "Potvrzuji vypnutí ostatních automatizací měnících čas/refrakci montáže",
+          "auto_time_sync_enabled": "Automaticky synchronizovat čas po ověřeném opětovném připojení montáže",
+          "auto_refraction_enabled": "Automaticky aktualizovat refrakci z čidel Home Assistanta",
+          "time_sync_enabled": "Povolit kontrolu a synchronizaci času (vyžaduje NTP)",
+          "refraction_enabled": "Povolit řízení refrakce (vyžaduje teplotu i tlak)"
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Neplatná konfigurace. Zkontroluj požadované NTP servery, čidla a povolení."
+    }
+  }
+}

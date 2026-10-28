@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1 – UI localization fix
+
+- Ship translations/en.json and translations/cs.json so manual custom-component installations show human-readable fields.
+- Keep original feature guards and read-only initial setup behavior unchanged.
+- Regression test translation completeness.
+
 ## 0.6.0 – standalone publication candidate
 
 - Standalone repository layout for HACS-compatible distribution and manual `custom_components` copying.
