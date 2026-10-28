@@ -12,9 +12,9 @@
           "temperature_entity": "Entita teplotního čidla v HA (vyžadována pro refrakci)",
           "pressure_entity": "Entita tlakového čidla v HA (vyžadována pro refrakci)",
           "ntp_servers": "NTP servery – oddělené čárkami (vyžadovány pro čas)",
-          "park_alt": "Referenční výška polohy PARK ve stupních (volitelné)",
-          "park_az": "Referenční azimut polohy PARK ve stupních (volitelné)",
-          "park_tolerance": "Tolerance polohy PARK (stupně)",
+          "park_alt": "Referenční výška PARK (°) – pouze ověření",
+          "park_az": "Referenční azimut PARK (°) – pouze ověření",
+          "park_tolerance": "Tolerance ověření PARK (°)",
           "slew_grace_seconds": "Tolerance doby přejezdu/ditheringu (sekundy)",
           "native_controls_enabled": "Povolit příkazy pro změnu času a refrakce",
           "legacy_writers_disabled_confirmed": "Potvrzuji vypnutí ostatních automatizací měnících čas/refrakci montáže",
@@ -41,9 +41,9 @@
           "temperature_entity": "Entita teplotního čidla v HA (vyžadována pro refrakci)",
           "pressure_entity": "Entita tlakového čidla v HA (vyžadována pro refrakci)",
           "ntp_servers": "NTP servery – oddělené čárkami (vyžadovány pro čas)",
-          "park_alt": "Referenční výška polohy PARK ve stupních (volitelné)",
-          "park_az": "Referenční azimut polohy PARK ve stupních (volitelné)",
-          "park_tolerance": "Tolerance polohy PARK (stupně)",
+          "park_alt": "Referenční výška PARK (°) – pouze ověření",
+          "park_az": "Referenční azimut PARK (°) – pouze ověření",
+          "park_tolerance": "Tolerance ověření PARK (°)",
           "slew_grace_seconds": "Tolerance doby přejezdu/ditheringu (sekundy)",
           "native_controls_enabled": "Povolit příkazy pro změnu času a refrakce",
           "legacy_writers_disabled_confirmed": "Potvrzuji vypnutí ostatních automatizací měnících čas/refrakci montáže",
@@ -56,6 +56,161 @@
     },
     "error": {
       "invalid_config": "Neplatná konfigurace. Zkontroluj požadované NTP servery, čidla a povolení."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "native_auto_time_result": {
+        "name": "Výsledek automatické synchronizace UTC"
+      },
+      "native_auto_time_at": {
+        "name": "Poslední pokus o automatickou synchronizaci UTC"
+      },
+      "native_auto_time_after_ms": {
+        "name": "Konečná odchylka UTC"
+      },
+      "native_auto_refraction_result": {
+        "name": "Výsledek automatické aktualizace refrakce"
+      },
+      "native_auto_refraction_at": {
+        "name": "Poslední pokus o automatickou aktualizaci refrakce"
+      },
+      "watchdog_state": {
+        "name": "Dohled sledování montáže"
+      },
+      "native_clock_offset_ms": {
+        "name": "Odchylka hodin montáže"
+      },
+      "native_temperature_delta_c": {
+        "name": "Změna teploty od posledního nastavení"
+      },
+      "native_pressure_delta_hpa": {
+        "name": "Změna tlaku od posledního nastavení"
+      },
+      "native_last_temperature_written": {
+        "name": "Poslední nastavená teplota refrakce"
+      },
+      "native_last_pressure_written": {
+        "name": "Poslední nastavený tlak refrakce"
+      },
+      "native_last_refraction_write": {
+        "name": "Poslední zápis refrakce"
+      },
+      "native_auto_status": {
+        "name": "Stav automatizace"
+      },
+      "native_last_action": {
+        "name": "Poslední příkaz"
+      },
+      "native_last_result": {
+        "name": "Výsledek posledního příkazu"
+      },
+      "tracking": {
+        "name": "Aktivní sledování"
+      },
+      "fault_reason": {
+        "name": "Příčina poruchy sledování"
+      },
+      "slew_seconds": {
+        "name": "Doba přejezdu"
+      },
+      "status": {
+        "name": "Stav montáže"
+      },
+      "status_code": {
+        "name": "Kód stavu montáže"
+      },
+      "altitude": {
+        "name": "Výška"
+      },
+      "azimuth": {
+        "name": "Azimut"
+      },
+      "pressure": {
+        "name": "Tlak pro refrakci"
+      },
+      "temperature": {
+        "name": "Teplota pro refrakci"
+      },
+      "last_seen": {
+        "name": "Poslední úspěšné načtení"
+      },
+      "park_separation": {
+        "name": "Odchylka polohy PARK"
+      },
+      "meridian_track_limit_deg": {
+        "name": "Limit sledování za meridiánem"
+      },
+      "meridian_slew_limit_deg": {
+        "name": "Limit GoTo za meridiánem"
+      },
+      "horizon_limit_deg": {
+        "name": "Minimální výška GoTo"
+      },
+      "meridian_allowed_side": {
+        "name": "Povolená strana meridiánu"
+      },
+      "pier_side": {
+        "name": "Aktuální strana montáže"
+      },
+      "tracking_end_minutes": {
+        "name": "Odhad času do konce sledování"
+      },
+      "tracking_end_estimated_utc": {
+        "name": "Odhad konce sledování UTC"
+      },
+      "hour_angle_minutes": {
+        "name": "Hodinový úhel se znaménkem"
+      },
+      "meridian_transit_minutes": {
+        "name": "Odhad času do průchodu meridiánem"
+      }
+    },
+    "binary_sensor": {
+      "parked": {
+        "name": "Zaparkováno"
+      },
+      "park_geometry": {
+        "name": "Ověřená poloha PARK"
+      },
+      "refraction": {
+        "name": "Refrakce zapnuta"
+      },
+      "tracking_fault": {
+        "name": "Neočekávané zastavení sledování"
+      },
+      "unattended_flip": {
+        "name": "Automatické překlopení přes meridián"
+      },
+      "tracking_limit_soon": {
+        "name": "Blíží se konec sledování (30 min)"
+      },
+      "tracking_limit_critical": {
+        "name": "Bezprostřední konec sledování (5 min)"
+      },
+      "meridian_transit_soon": {
+        "name": "Blíží se průchod meridiánem (30 min)"
+      }
+    },
+    "button": {
+      "time_check": {
+        "name": "Kontrola hodin montáže (bez změn)"
+      },
+      "time_sync": {
+        "name": "Synchronizovat UTC montáže (NTP)"
+      },
+      "refraction_preview": {
+        "name": "Náhled aktualizace refrakce (bez změn)"
+      },
+      "enable": {
+        "name": "Zapnout refrakci"
+      },
+      "disable": {
+        "name": "Vypnout refrakci"
+      },
+      "update": {
+        "name": "Aktualizovat tlak a teplotu refrakce"
+      }
     }
   }
 }

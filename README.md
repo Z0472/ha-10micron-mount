@@ -23,6 +23,12 @@ Community-maintained **experimental** local TCP integration for 10Micron mounts.
 
 Back up an existing integration directory before any manual update. This standalone edition intentionally **does not implement PARK commands**. Do **not** install over a private observatory build that needs those commands.
 
+## PARK reference and entity translations
+
+Reference PARK altitude (Alt), azimuth (Az), and tolerance are optional and now shown immediately below the TCP connection settings. They are used **only** to validate the reported parked position; no movement commands are sent.
+
+Entity names for sensors, binary sensors and buttons are translated into Czech and English. Stable entity unique IDs and all raw telemetry values are preserved; names of existing entities may be cached or customized in Home Assistant.
+
 ## Optional functions and their prerequisites
 
 | Parameter | Required for | If missing |

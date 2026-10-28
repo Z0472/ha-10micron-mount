@@ -11,9 +11,9 @@
           "temperature_entity": "Temperature sensor entity (required for refraction)",
           "pressure_entity": "Pressure sensor entity (required for refraction)",
           "ntp_servers": "NTP server hostnames/IPs (comma-separated; required for time functions)",
-          "park_alt": "Reference park altitude (degrees, optional)",
-          "park_az": "Reference park azimuth (degrees, optional)",
-          "park_tolerance": "Park tolerance (degrees)",
+          "park_alt": "Reference PARK altitude (°) – verification only",
+          "park_az": "Reference PARK azimuth (°) – verification only",
+          "park_tolerance": "PARK verification tolerance (°)",
           "slew_grace_seconds": "Slew/dither grace time in seconds",
           "native_controls_enabled": "Allow native UTC/refraction write commands (explicit opt-in)",
           "legacy_writers_disabled_confirmed": "I confirm that other writers to mount UTC/refraction are disabled",
@@ -40,9 +40,9 @@
           "temperature_entity": "Temperature sensor entity (required for refraction)",
           "pressure_entity": "Pressure sensor entity (required for refraction)",
           "ntp_servers": "NTP server hostnames/IPs (comma-separated; required for time functions)",
-          "park_alt": "Reference park altitude (degrees, optional)",
-          "park_az": "Reference park azimuth (degrees, optional)",
-          "park_tolerance": "Park tolerance (degrees)",
+          "park_alt": "Reference PARK altitude (°) – verification only",
+          "park_az": "Reference PARK azimuth (°) – verification only",
+          "park_tolerance": "PARK verification tolerance (°)",
           "slew_grace_seconds": "Slew/dither grace time in seconds",
           "native_controls_enabled": "Allow native UTC/refraction write commands (explicit opt-in)",
           "legacy_writers_disabled_confirmed": "I confirm that other writers to mount UTC/refraction are disabled",
@@ -57,5 +57,160 @@
       "invalid_config": "Invalid configuration"
     }
   },
-  "title": "10Micron Mount Monitor"
+  "title": "10Micron Mount Monitor",
+  "entity": {
+    "sensor": {
+      "native_auto_time_result": {
+        "name": "Automatic UTC result"
+      },
+      "native_auto_time_at": {
+        "name": "Last automatic UTC attempt"
+      },
+      "native_auto_time_after_ms": {
+        "name": "Automatic UTC final offset"
+      },
+      "native_auto_refraction_result": {
+        "name": "Automatic refraction result"
+      },
+      "native_auto_refraction_at": {
+        "name": "Last automatic refraction attempt"
+      },
+      "watchdog_state": {
+        "name": "Tracking watchdog"
+      },
+      "native_clock_offset_ms": {
+        "name": "Mount clock offset"
+      },
+      "native_temperature_delta_c": {
+        "name": "Temperature change since update"
+      },
+      "native_pressure_delta_hpa": {
+        "name": "Pressure change since update"
+      },
+      "native_last_temperature_written": {
+        "name": "Last written refraction temperature"
+      },
+      "native_last_pressure_written": {
+        "name": "Last written refraction pressure"
+      },
+      "native_last_refraction_write": {
+        "name": "Last native refraction update"
+      },
+      "native_auto_status": {
+        "name": "Native automation state"
+      },
+      "native_last_action": {
+        "name": "Last native action"
+      },
+      "native_last_result": {
+        "name": "Last native result"
+      },
+      "tracking": {
+        "name": "Tracking active"
+      },
+      "fault_reason": {
+        "name": "Tracking fault reason"
+      },
+      "slew_seconds": {
+        "name": "Slew duration"
+      },
+      "status": {
+        "name": "Mount state"
+      },
+      "status_code": {
+        "name": "Mount state code"
+      },
+      "altitude": {
+        "name": "Altitude"
+      },
+      "azimuth": {
+        "name": "Azimuth"
+      },
+      "pressure": {
+        "name": "Refraction pressure"
+      },
+      "temperature": {
+        "name": "Refraction temperature"
+      },
+      "last_seen": {
+        "name": "Last successful poll"
+      },
+      "park_separation": {
+        "name": "Park position deviation"
+      },
+      "meridian_track_limit_deg": {
+        "name": "Meridian tracking limit"
+      },
+      "meridian_slew_limit_deg": {
+        "name": "Meridian GoTo/slew limit"
+      },
+      "horizon_limit_deg": {
+        "name": "Minimum GoTo altitude"
+      },
+      "meridian_allowed_side": {
+        "name": "Allowed meridian side"
+      },
+      "pier_side": {
+        "name": "Current pier side"
+      },
+      "tracking_end_minutes": {
+        "name": "Estimated time to tracking end"
+      },
+      "tracking_end_estimated_utc": {
+        "name": "Estimated tracking end UTC"
+      },
+      "hour_angle_minutes": {
+        "name": "Signed hour angle"
+      },
+      "meridian_transit_minutes": {
+        "name": "Estimated time to meridian transit"
+      }
+    },
+    "binary_sensor": {
+      "parked": {
+        "name": "Parked"
+      },
+      "park_geometry": {
+        "name": "Park position verified"
+      },
+      "refraction": {
+        "name": "Refraction enabled"
+      },
+      "tracking_fault": {
+        "name": "Unexpected tracking stop"
+      },
+      "unattended_flip": {
+        "name": "Unattended meridian flip enabled"
+      },
+      "tracking_limit_soon": {
+        "name": "Tracking end approaching (30 min)"
+      },
+      "tracking_limit_critical": {
+        "name": "Tracking end imminent (5 min)"
+      },
+      "meridian_transit_soon": {
+        "name": "Meridian transit approaching (30 min)"
+      }
+    },
+    "button": {
+      "time_check": {
+        "name": "Check mount clock (no changes)"
+      },
+      "time_sync": {
+        "name": "Synchronize mount UTC (NTP)"
+      },
+      "refraction_preview": {
+        "name": "Preview refraction update (no changes)"
+      },
+      "enable": {
+        "name": "Enable refraction"
+      },
+      "disable": {
+        "name": "Disable refraction"
+      },
+      "update": {
+        "name": "Update refraction pressure/temperature"
+      }
+    }
+  }
 }

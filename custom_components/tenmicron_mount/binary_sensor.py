@@ -9,7 +9,7 @@ class MountBinary(MountEntity, BinarySensorEntity):
     def __init__(self, coordinator, entry, key, name, icon):
         super().__init__(coordinator, entry)
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._attr_unique_id = f"{entry.entry_id}_{key if key != 'parked' else 'parked'}"
         self._attr_icon = icon
     @property

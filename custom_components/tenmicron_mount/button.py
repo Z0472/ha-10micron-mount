@@ -23,7 +23,7 @@ class MountAction(MountEntity,ButtonEntity):
     def __init__(self,coordinator,entry,key,name,icon):
         super().__init__(coordinator,entry)
         self.operation=key
-        self._attr_name=name
+        self._attr_translation_key = self.operation
         self._attr_icon=icon
         self._attr_unique_id=f"{entry.entry_id}_action_{key}"
     @property

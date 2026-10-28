@@ -46,7 +46,7 @@ class MountSensor(MountEntity, SensorEntity):
     def __init__(self, coordinator, entry, key, name, icon, unit):
         super().__init__(coordinator, entry)
         self.key = key
-        self._attr_name = name
+        self._attr_translation_key = key
         self._attr_unique_id = f"{entry.entry_id}_{key}"
         self._attr_icon = icon
         if unit:

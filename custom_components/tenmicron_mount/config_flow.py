@@ -14,6 +14,10 @@ def schema(defaults):
             vol.All(vol.Coerce(int), vol.Range(min=2, max=3600)),
         vol.Required("timeout", default=defaults.get("timeout", 2)):
             vol.All(vol.Coerce(int), vol.Range(min=1, max=30)),
+        vol.Optional("park_alt", default=defaults.get("park_alt", "")): str,
+        vol.Optional("park_az", default=defaults.get("park_az", "")): str,
+        vol.Required("park_tolerance", default=defaults.get("park_tolerance", 0.5)):
+            vol.All(vol.Coerce(float), vol.Range(min=0.01, max=30)),
         vol.Optional("ntp_servers", default=defaults.get("ntp_servers", "")): str,
         vol.Optional("temperature_entity", default=defaults.get("temperature_entity", "")): str,
         vol.Optional("pressure_entity", default=defaults.get("pressure_entity", "")): str,
@@ -28,10 +32,6 @@ def schema(defaults):
                      default=defaults.get("auto_refraction_enabled", False)): bool,
         vol.Required("slew_grace_seconds", default=defaults.get("slew_grace_seconds", 60)):
             vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
-        vol.Optional("park_alt", default=defaults.get("park_alt", "")): str,
-        vol.Optional("park_az", default=defaults.get("park_az", "")): str,
-        vol.Required("park_tolerance", default=defaults.get("park_tolerance", 0.5)):
-            vol.All(vol.Coerce(float), vol.Range(min=0.01, max=30)),
     })
 
 def validate(values, hass=None):
