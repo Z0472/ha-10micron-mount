@@ -9,6 +9,10 @@
 
 Community-maintained **experimental** local TCP integration for 10Micron mounts. Based on a GM3000HPS / Control Box V3 installation; **other models and firmwares are not yet verified**. Not affiliated with 10Micron.
 
+## Release status
+
+**Experimental preview.** Real TCP telemetry has been tested on a GM3000HPS; the optional browser siren and automatic UTC/refraction writes have not yet completed end-to-end field testing. Use independent mount and roof safety protections. The public repository does **not** include private observatory automation code or its history.
+
 ## Features
 
 - Tracking state, Gstat/GTRK watchdog, Alt/Az, mount refraction state, meridian and tracking-limit telemetry.
@@ -82,7 +86,7 @@ Time synchronization checks are offered only when valid NTP servers have been co
 
 ## HACS / Marketplace
 
-The standalone directory layout `custom_components/tenmicron_mount/` is suitable for manual copying and HACS-compatible repository packaging. This repository currently remains private by owner choice. The integration is distributed in versioned **GitHub Releases** as a ZIP and supports manual copying into `custom_components/`. HACS custom-repository use is optional and should be validated before public announcement.
+The standalone directory layout `custom_components/tenmicron_mount/` is suitable for manual copying and HACS-compatible repository packaging. This integration is shared as an **experimental pre-release**. Versioned installation ZIPs are available in **GitHub Releases**, and manual copying into `custom_components/` is supported. HACS custom-repository installation may be used after validation; official HACS catalog listing is not yet claimed.
 
 ## Compatibility
 

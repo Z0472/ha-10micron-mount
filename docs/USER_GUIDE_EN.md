@@ -1,6 +1,6 @@
 # 10Micron Mount Monitor – User Guide (EN)
 
-**Version 0.7.1 – experimental Home Assistant integration.**
+**Version 0.7.2 – experimental Home Assistant integration.**
 Development baseline: GM3000HPS, Control Box V3, firmware 3.4.0.
 Unofficial community project, not affiliated with 10Micron and not a safety interlock.
 

@@ -1,6 +1,6 @@
 # 10Micron Mount Monitor – Uživatelský návod (CZ)
 
-**Verze 0.7.1 – experimentální integrace pro Home Assistant.**
+**Verze 0.7.2 – experimentální integrace pro Home Assistant.**
 Vývoj a reálná komunikace ověřena s GM3000HPS, Control Box V3, FW 3.4.0.
 Jde o komunitní integraci bez vazby na výrobce 10Micron. Nejde o bezpečnostní interlock.
 

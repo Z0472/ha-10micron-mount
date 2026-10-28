@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.2 – first public preview preparation
+
+- Clarify experimental release status and the distinction between tested telemetry and unverified optional write/audio features.
+- Remove outdated statement that the repository is private.
+- No changes to mount control, telemetry, configurations, or entity identifiers.
+
+
 ## 0.7.1 – full bilingual user documentation
 
 - Add prominent documentation links at the top of README.
