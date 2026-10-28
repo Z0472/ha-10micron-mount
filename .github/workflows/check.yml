@@ -1,10 +1,14 @@
 name: Check integration and optional alarms
 on:
   push:
+    branches:
+      - main
   pull_request:
 jobs:
   source-tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,3 +29,115 @@ jobs:
         run: node --check www/tenmicron-alarm-card.js
       - name: Simulate alarm card transitions
         run: node --test tests/test_alarm_card.cjs
+
+  publish-release:
+    name: Build ZIP and publish versioned GitHub Release
+    needs: source-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Determine version from manifest
+        shell: bash
+        run: |
+          VERSION="$(python -c 'import json; print(json.load(open("custom_components/tenmicron_mount/manifest.json", encoding="utf-8"))["version"])')"
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Invalid semantic version: $VERSION"
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "TAG=v$VERSION" >> "$GITHUB_ENV"
+      - name: Build release ZIP and SHA256
+        shell: bash
+        run: |
+          mkdir -p release
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          import zipfile
+
+          root = Path(".")
+          version = json.loads((root / "custom_components/tenmicron_mount/manifest.json").read_text(encoding="utf-8"))["version"]
+          archive = root / "release" / f"10micron_mount_v{version}.zip"
+          sources = [
+              root / "custom_components/tenmicron_mount",
+              root / "www",
+              root / "blueprints/automation/tenmicron",
+              root / "docs/ALARMS.md",
+              root / "README.md",
+              root / "CHANGELOG.md",
+              root / "LICENSE",
+          ]
+          files = []
+          for source in sources:
+              if not source.exists():
+                  raise RuntimeError(f"Missing release source: {source}")
+              if source.is_dir():
+                  files.extend(p for p in source.rglob("*") if p.is_file())
+              else:
+                  files.append(source)
+          files = sorted(
+              (p for p in files if p.suffix != ".pyc" and "__pycache__" not in p.parts),
+              key=lambda p: p.as_posix(),
+          )
+          required = {
+              "custom_components/tenmicron_mount/manifest.json",
+              "custom_components/tenmicron_mount/brand/icon.png",
+              "custom_components/tenmicron_mount/translations/cs.json",
+              "custom_components/tenmicron_mount/translations/en.json",
+              "www/tenmicron-alarm-card.js",
+              "blueprints/automation/tenmicron/tracking_stop_alarm.yaml",
+              "blueprints/automation/tenmicron/connection_lost_alarm.yaml",
+          }
+          included = {p.as_posix() for p in files}
+          missing = required - included
+          if missing:
+              raise RuntimeError(f"Release content incomplete: {missing}")
+          with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+              for file in files:
+                  z.write(file, file.as_posix())
+          with zipfile.ZipFile(archive) as z:
+              if z.testzip() is not None:
+                  raise RuntimeError("Release archive failed ZIP integrity test")
+          sha256 = hashlib.sha256(archive.read_bytes()).hexdigest()
+          (root / "release" / "SHA256SUMS.txt").write_text(
+              f"{sha256}  {archive.name}\n", encoding="utf-8"
+          )
+          print(f"Created {archive} with {len(files)} files (sha256 {sha256})")
+          PY
+      - name: Publish GitHub release if the version does not already exist
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $TAG already exists. Increase version in manifest.json for a new release."
+            exit 0
+          fi
+          cat > release/release-notes.md <<EOF
+          Standalone Home Assistant integration and optional alarm accessories.
+
+          Manual installation: Extract 10micron_mount_v$VERSION.zip and copy:
+          - custom_components/tenmicron_mount/ to /config/custom_components/tenmicron_mount/
+          - Optional alarm card www/tenmicron-alarm-card.js to /config/www/
+          - Optional automation blueprints blueprints/automation/tenmicron/ to /config/blueprints/automation/tenmicron/
+
+          Restart Home Assistant Core after replacing integration files.
+          For the dashboard resource and alert setup read docs/ALARMS.md inside the ZIP.
+
+          Safety: Software is experimental and does not independently protect mounts or roof mechanisms.
+          EOF
+          gh release create "$TAG" "release/10micron_mount_v$VERSION.zip" "release/SHA256SUMS.txt" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "10Micron Mount Monitor $TAG" \
+            --notes-file release/release-notes.md \
+            --prerelease
