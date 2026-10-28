@@ -1,4 +1,4 @@
-name: Check integration
+name: Check integration and optional alarms
 on:
   push:
   pull_request:
@@ -10,9 +10,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install blueprint test dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
       - name: Parse Python source
         run: python -m compileall -q custom_components/tenmicron_mount
-      - name: Verify feature gates
-        run: python -m unittest discover -s tests -v
+      - name: Verify feature gates and YAML blueprints
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Validate JSON files
-        run: python -c "import json,pathlib; [json.loads(p.read_text()) for p in pathlib.Path('custom_components/tenmicron_mount').glob('*.json')]"
+        run: python -c "import json,pathlib; [json.loads(p.read_text()) for p in pathlib.Path('custom_components/tenmicron_mount').rglob('*.json')]"
+      - name: Validate browser card JavaScript syntax
+        run: node --check www/tenmicron-alarm-card.js
+      - name: Simulate alarm card transitions
+        run: node --test tests/test_alarm_card.cjs

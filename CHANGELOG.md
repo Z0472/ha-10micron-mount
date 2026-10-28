@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 – optional alerting
+- Add opt-in 10Micron Alarm Lovelace card with local browser siren, test, arm and silence, in Czech/English.
+- Add tracking-stop automation blueprint with configurable sensor and siren/notification actions.
+- Add separate opt-in sustained TCP availability alarm blueprint.
+- Add bilingual manual-install documentation and standalone JS/blueprint tests.
+- No changes to 10Micron TCP commands, clock, refraction, PARK or existing entity IDs.
+
+
 ## 0.6.4 – integration brand icon
 
 - Include an original transparent 256×256 PNG icon in `custom_components/tenmicron_mount/brand/icon.png`.

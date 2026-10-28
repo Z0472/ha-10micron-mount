@@ -18,6 +18,16 @@ An original astronomy mount icon is included at `custom_components/tenmicron_mou
 
 After updating, restart HA Core and refresh the browser. Some HACS versions may still display a placeholder in the HACS catalog even though the icon works on the Home Assistant integrations/device pages.
 
+## Optional alarms (v0.7.0)
+
+The 10Micron integration does **not** play audio by itself. Optional components:
+
+- **Browser sound card** in `www/tenmicron-alarm-card.js`: manual user activation, local beep/siren on fresh tracking-fault `off → on`, Test, Silence; cannot ring when the browser is sleeping or closed.
+- **Tracking alarm blueprint** `blueprints/automation/tenmicron/tracking_stop_alarm.yaml`: user chooses the binary sensor and what happens (physical siren, phone alert, persistent notification).
+- **Connection-loss blueprint** `blueprints/automation/tenmicron/connection_lost_alarm.yaml`: optional alert for sustained `unavailable` / `unknown` mount state. Deliberately powering off the mount can trigger it too.
+
+See [Alarm instructions – English and Czech](docs/ALARMS.md) for exact manual installation and configuration. HACS installation of the Python integration does **not** automatically install the card or blueprints.
+
 ## Manual installation (without HACS)
 
 1. Download this project's ZIP and extract it.
