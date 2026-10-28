@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.1 – full bilingual user documentation
+
+- Add prominent documentation links at the top of README.
+- Add complete Czech and English user guides for setup, manual/automatic UTC, refraction, PARK, monitoring and alarms.
+- Describe current startup/reconnect conditions and the refraction initial-write limitation without overstating functionality.
+- Include the entire docs directory in GitHub Release ZIP.
+- No mount protocol, automation, or entity behavior changed.
+
+
 ## 0.7.0 – optional alerting
 - Add opt-in 10Micron Alarm Lovelace card with local browser siren, test, arm and silence, in Czech/English.
 - Add tracking-stop automation blueprint with configurable sensor and siren/notification actions.

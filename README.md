@@ -1,5 +1,12 @@
 # 10Micron Mount Monitor for Home Assistant
 
+## Documentation / Dokumentace
+
+- 🇨🇿 **[Český uživatelský návod – instalace, konfigurace, UTC, refrakce, alarmy](docs/USER_GUIDE_CS.md)**
+- 🇬🇧 **[English User Guide – installation, configuration, UTC, refraction, alarms](docs/USER_GUIDE_EN.md)**
+- **[Alarm card and blueprints / Zvukový alarm a blueprinty](docs/ALARMS.md)**
+- **[Versioned downloads / Stažení hotového ZIPu](https://github.com/Z0472/ha-10micron-mount/releases)**
+
 Community-maintained **experimental** local TCP integration for 10Micron mounts. Based on a GM3000HPS / Control Box V3 installation; **other models and firmwares are not yet verified**. Not affiliated with 10Micron.
 
 ## Features
@@ -29,6 +36,8 @@ The 10Micron integration does **not** play audio by itself. Optional components:
 See [Alarm instructions – English and Czech](docs/ALARMS.md) for exact manual installation and configuration. HACS installation of the Python integration does **not** automatically install the card or blueprints.
 
 ## Manual installation (without HACS)
+
+For a complete installation walkthrough, start with the [Czech guide](docs/USER_GUIDE_CS.md) or [English guide](docs/USER_GUIDE_EN.md).
 
 1. Download this project's ZIP and extract it.
 2. Copy the **entire folder** `custom_components/tenmicron_mount/` into HA: `/config/custom_components/tenmicron_mount/`.
@@ -73,7 +82,7 @@ Time synchronization checks are offered only when valid NTP servers have been co
 
 ## HACS / Marketplace
 
-The standalone directory layout `custom_components/tenmicron_mount/` is suitable for manual copying and HACS-compatible repository packaging. After the code is moved into a **new public repository with clean history**, add that repository as a custom integration repository. The present staging branch is private; it is not a public release.
+The standalone directory layout `custom_components/tenmicron_mount/` is suitable for manual copying and HACS-compatible repository packaging. This repository currently remains private by owner choice. The integration is distributed in versioned **GitHub Releases** as a ZIP and supports manual copying into `custom_components/`. HACS custom-repository use is optional and should be validated before public announcement.
 
 ## Compatibility
 

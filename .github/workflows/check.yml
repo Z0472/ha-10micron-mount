@@ -71,7 +71,7 @@ jobs:
               root / "custom_components/tenmicron_mount",
               root / "www",
               root / "blueprints/automation/tenmicron",
-              root / "docs/ALARMS.md",
+              root / "docs",
               root / "README.md",
               root / "CHANGELOG.md",
               root / "LICENSE",
@@ -94,6 +94,9 @@ jobs:
               "custom_components/tenmicron_mount/translations/cs.json",
               "custom_components/tenmicron_mount/translations/en.json",
               "www/tenmicron-alarm-card.js",
+              "docs/USER_GUIDE_CS.md",
+              "docs/USER_GUIDE_EN.md",
+              "docs/ALARMS.md",
               "blueprints/automation/tenmicron/tracking_stop_alarm.yaml",
               "blueprints/automation/tenmicron/connection_lost_alarm.yaml",
           }
@@ -131,7 +134,8 @@ jobs:
           - Optional automation blueprints blueprints/automation/tenmicron/ to /config/blueprints/automation/tenmicron/
 
           Restart Home Assistant Core after replacing integration files.
-          For the dashboard resource and alert setup read docs/ALARMS.md inside the ZIP.
+          Read docs/USER_GUIDE_CS.md (Czech), docs/USER_GUIDE_EN.md (English)
+          and docs/ALARMS.md (alarm setup) inside the ZIP.
 
           Safety: Software is experimental and does not independently protect mounts or roof mechanisms.
           EOF
