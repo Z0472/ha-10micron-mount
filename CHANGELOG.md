@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.3 – optional English Meridian Monitor and complete ZIP
+
+- Add `www/tenmicron-meridian-card.js` (read-only telemetry; no mount or roof commands).
+- Include the existing tracking alarm card, new Meridian Monitor card, two clearly labeled example SVG previews, blueprints and bilingual setup guides in one versioned ZIP.
+- Check both card JavaScript files and required release contents in CI.
+- Update public download instructions for v0.7.3. Source integration behavior, entity IDs, mount protocol, UTC and refraction logic remain unchanged.
+- Pre-release: new Meridian Monitor card has not been independently field-tested in Home Assistant.
+
 ## 0.7.2 – first public preview preparation
 
 - Clarify experimental release status and the distinction between tested telemetry and unverified optional write/audio features.
