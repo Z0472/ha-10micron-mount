@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="430" viewBox="0 0 1100 430" role="img" aria-label="10Micron Meridian Monitor demo">
+<rect width="1100" height="430" fill="#0b1724"/><rect x="18" y="16" width="1064" height="398" rx="16" fill="#12283a" stroke="#38576b" stroke-width="2"/>
+<text x="43" y="54" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="24" font-weight="bold">10Micron Meridian Monitor</text>
+<text x="43" y="76" fill="#8caabd" font-family="Arial,sans-serif" font-size="13">Read-only mount telemetry  ·  Example data (not a live mount)</text><rect x="800" y="38" width="240" height="34" rx="7" fill="#1b493d" stroke="#4caa83"/><text x="920" y="60" fill="#8eebbd" font-size="15" font-family="Arial" text-anchor="middle">No active warning</text><rect x="43" y="106" width="245" height="85" rx="9" fill="#193449" stroke="#355770"/>
+<text x="57" y="131" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Meridian transit</text>
+<text x="57" y="163" fill="#d5edf6" font-family="Arial,sans-serif" font-size="22" font-weight="bold">24.5 min</text><rect x="302" y="106" width="245" height="85" rx="9" fill="#193449" stroke="#355770"/>
+<text x="316" y="131" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Tracking end</text>
+<text x="316" y="163" fill="#d5edf6" font-family="Arial,sans-serif" font-size="22" font-weight="bold">38 min</text><rect x="561" y="106" width="245" height="85" rx="9" fill="#193449" stroke="#355770"/>
+<text x="575" y="131" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Pier side</text>
+<text x="575" y="163" fill="#d5edf6" font-family="Arial,sans-serif" font-size="22" font-weight="bold">West</text><rect x="820" y="106" width="245" height="85" rx="9" fill="#193449" stroke="#355770"/>
+<text x="834" y="131" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Unattended flip</text>
+<text x="834" y="163" fill="#d5edf6" font-family="Arial,sans-serif" font-size="22" font-weight="bold">Enabled</text><rect x="43" y="204" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="57" y="229" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Signed hour angle</text>
+<text x="57" y="261" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">-24.5 min</text><rect x="302" y="204" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="316" y="229" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Allowed side</text>
+<text x="316" y="261" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">Both</text><rect x="561" y="204" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="575" y="229" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Tracking limit</text>
+<text x="575" y="261" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">15°</text><rect x="820" y="204" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="834" y="229" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">GoTo/slew limit</text>
+<text x="834" y="261" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">10°</text><rect x="43" y="293" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="57" y="318" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Minimum GoTo altitude</text>
+<text x="57" y="350" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">12°</text><rect x="302" y="293" width="245" height="76" rx="9" fill="#193449" stroke="#355770"/>
+<text x="316" y="318" fill="#9cbbce" font-family="Arial,sans-serif" font-size="14">Mount state</text>
+<text x="316" y="350" fill="#e4f3fc" font-family="Arial,sans-serif" font-size="22" font-weight="bold">Tracking</text><text x="575" y="319" fill="#ffcc7b" font-size="14" font-family="Arial">Tracking end is NOT a scheduled flip time.</text>
+<text x="43" y="400" fill="#86a4b8" font-size="13" font-family="Arial">Illustrative screenshot-style preview • manually configured entities may be required • no mount commands</text></svg>
