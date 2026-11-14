@@ -27,6 +27,12 @@ Před aktualizací zazálohuj dosavadní adresář integrace a nahraď jeho obsa
 Stejná struktura umožňuje ruční instalaci i vlastní HACS repozitář.
 **Alarmovou kartu a blueprinty je potřeba instalovat zvlášť.**
 
+## 2A. Volitelná karta do nástěnky a alarmy
+
+Veřejný balíček obsahuje **jednu doplňkovou kartu do Lovelace**: [`www/tenmicron-alarm-card.js`](../www/tenmicron-alarm-card.js), která umí přehrávat zvukový alarm při neočekávaném zastavení sledování. **Neobsahuje kompletní grafický kokpit soukromé observatoře.** Senzory integrace lze zobrazit v libovolném vlastním dashboardu.
+
+Kartu zkopíruj do `/config/www/`, v Nastavení → Nástěnky → Zdroje přidej JavaScript modul `/local/tenmicron-alarm-card.js?v=0.7.0` a použij konfiguraci z [návodu k alarmům](ALARMS.md). Pro automatické notifikace jsou dostupné dva samostatně instalované [blueprinty](../blueprints/automation/tenmicron/). Po instalaci samotné integrace přes HACS se tyto doplňky nepřidávají automaticky.
+
 ## 3. Konfigurace
 
 | Nastavení | Význam |
