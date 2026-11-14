@@ -26,7 +26,9 @@ jobs:
       - name: Validate JSON files
         run: python -c "import json,pathlib; [json.loads(p.read_text()) for p in pathlib.Path('custom_components/tenmicron_mount').rglob('*.json')]"
       - name: Validate browser card JavaScript syntax
-        run: node --check www/tenmicron-alarm-card.js
+        run: |
+          node --check www/tenmicron-alarm-card.js
+          node --check www/tenmicron-meridian-card.js
       - name: Simulate alarm card transitions
         run: node --test tests/test_alarm_card.cjs
 
@@ -94,6 +96,9 @@ jobs:
               "custom_components/tenmicron_mount/translations/cs.json",
               "custom_components/tenmicron_mount/translations/en.json",
               "www/tenmicron-alarm-card.js",
+              "www/tenmicron-meridian-card.js",
+              "docs/images/meridian-monitor-example.svg",
+              "docs/images/tracking-alarm-example.svg",
               "docs/USER_GUIDE_CS.md",
               "docs/USER_GUIDE_EN.md",
               "docs/ALARMS.md",
@@ -131,11 +136,13 @@ jobs:
           Manual installation: Extract 10micron_mount_v$VERSION.zip and copy:
           - custom_components/tenmicron_mount/ to /config/custom_components/tenmicron_mount/
           - Optional alarm card www/tenmicron-alarm-card.js to /config/www/
+          - Optional English Meridian Monitor card www/tenmicron-meridian-card.js to /config/www/
           - Optional automation blueprints blueprints/automation/tenmicron/ to /config/blueprints/automation/tenmicron/
 
           Restart Home Assistant Core after replacing integration files.
           Read docs/USER_GUIDE_CS.md (Czech), docs/USER_GUIDE_EN.md (English)
           and docs/ALARMS.md (alarm setup) inside the ZIP.
+          Example card previews with simulated values are in docs/images/.
 
           Safety: Software is experimental and does not independently protect mounts or roof mechanisms.
           EOF
