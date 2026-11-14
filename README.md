@@ -64,6 +64,27 @@ The [v0.7.2 pre-release](https://github.com/Z0472/ha-10micron-mount/releases/tag
 
 **Safety distinction:** Unlike the author's private observatory implementation, this standalone public edition has no PARK, GoTo, roof, shutter or other movement commands. The optional PARK reference only compares reported Alt/Az against a reference.
 
+## Optional Meridian Monitor dashboard card (read-only)
+
+![Meridian Monitor example with simulated values](docs/images/meridian-monitor-example.svg)
+
+**[Preview the English Meridian Monitor](docs/images/meridian-monitor-example.svg)** · **[Preview the optional tracking alarm card](docs/images/tracking-alarm-example.svg)**
+
+> These are **illustrative screenshots with example values**, not captures of live mount operation. The card itself reads live HA sensor states, never sends commands.
+
+This repository also contains the optional **[10Micron Meridian Monitor](www/tenmicron-meridian-card.js)** Lovelace card for meridian-transit countdown, tracking-end estimate, pier side, unattended-flip enabled status, hour angle and limits. No flip, GoTo, PARK or roof commands are implemented.
+
+**Manual installation:** Copy `www/tenmicron-meridian-card.js` to `/config/www/tenmicron-meridian-card.js`, register `/local/tenmicron-meridian-card.js?v=0.1.0` under HA **Settings → Dashboards → Resources** as a **JavaScript module**, then create a Manual card:
+
+```yaml
+type: custom:tenmicron-meridian-card
+title: 10Micron Meridian Monitor
+```
+
+The card attempts to discover conventional English entity IDs. **Actual HA entity IDs may differ**, especially after reinstalling, renaming or using multiple mounts. If the display shows missing/unknown values, specify the IDs under `entities:` as described in the [English guide](docs/USER_GUIDE_EN.md#2b-meridian-monitor-card).
+
+**Important:** `Estimated time to tracking end` may refer to a *horizon limit OR meridian limit*. It is **not** a scheduled meridian-flip time. The unattended flip sensor only reports whether that setting is enabled, not that a flip will execute.
+
 ## Manual installation (without HACS)
 
 For a complete installation walkthrough, start with the [Czech guide](docs/USER_GUIDE_CS.md) or [English guide](docs/USER_GUIDE_EN.md).
