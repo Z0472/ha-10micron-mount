@@ -33,6 +33,27 @@ Veřejný balíček obsahuje **jednu doplňkovou kartu do Lovelace**: [`www/tenm
 
 Kartu zkopíruj do `/config/www/`, v Nastavení → Nástěnky → Zdroje přidej JavaScript modul `/local/tenmicron-alarm-card.js?v=0.7.0` a použij konfiguraci z [návodu k alarmům](ALARMS.md). Pro automatické notifikace jsou dostupné dva samostatně instalované [blueprinty](../blueprints/automation/tenmicron/). Po instalaci samotné integrace přes HACS se tyto doplňky nepřidávají automaticky.
 
+## 2B. Karta Meridian Monitor (pouze pro čtení)
+
+![Ukázka meridiánové karty se simulovanými údaji](images/meridian-monitor-example.svg)
+
+**Obrázek je ukázkové zobrazení s fiktivními hodnotami, nikoli snímek živé montáže.**
+
+Veřejný projekt obsahuje také `www/tenmicron-meridian-card.js`, samostatnou **anglickou** Lovelace kartu zobrazující čas do průchodu meridiánem, odhad konce sledování, stranu pilíře, stav povolení unattended flipu, hodinový úhel a limity. Karta nic neovládá.
+
+1. Zkopíruj `www/tenmicron-meridian-card.js` do `/config/www/`.
+2. V **Nastavení → Nástěnky → Zdroje** přidej JavaScript modul `/local/tenmicron-meridian-card.js?v=0.1.0`.
+3. Přidej ruční kartu:
+
+```yaml
+type: custom:tenmicron-meridian-card
+title: 10Micron Meridian Monitor
+```
+
+Pokud nejsou automaticky rozpoznané názvy entit, je nutné doplnit skutečné ID senzorů pomocí `entities:` podle [anglického návodu](USER_GUIDE_EN.md#2b-meridian-monitor-card). Identifikátory mohou být po přeinstalaci jiné.
+
+**Pozor:** Odhad konce sledování **není** předpovědí času meridiánového flipu. Může jít o horizontální či meridiánový limit. Hodnota unattended flip znamená pouze informaci o povolení této funkce v montáži.
+
 ## 3. Konfigurace
 
 | Nastavení | Význam |
