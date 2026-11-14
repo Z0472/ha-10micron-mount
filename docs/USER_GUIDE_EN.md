@@ -32,6 +32,27 @@ Back up the old integration folder before upgrading. Manual copying
 and a HACS custom integration repository use the same Python component layout.
 **Browser card and blueprints are installed separately**.
 
+## 2A. Optional Lovelace dashboard card and alarm blueprints
+
+The download includes **one optional custom Lovelace card** for audible tracking alerts: [`www/tenmicron-alarm-card.js`](../www/tenmicron-alarm-card.js). It is **not** a complete 10Micron dashboard, and the author's private observatory cockpit is **not** published here. You may add the integration's sensor/binary-sensor entities to any standard HA dashboard.
+
+To install the alarm card:
+
+1. Copy `www/tenmicron-alarm-card.js` to `/config/www/tenmicron-alarm-card.js`. If `/config/www/` did not previously exist, restart HA Core.
+2. Open **Settings → Dashboards → Resources** and add `/local/tenmicron-alarm-card.js?v=0.7.0` as a **JavaScript module**.
+3. Add a **Manual** dashboard card with the following YAML, replacing the sample entity ID with the tracking-fault binary sensor from your integration:
+
+```yaml
+type: custom:tenmicron-alarm-card
+entity: binary_sensor.10micron_mount_unexpected_tracking_stop
+language: en
+volume: 0.08
+```
+
+4. Click **Enable sound** and **Test 1 s** in the active browser. Audio is local to that browser and must be re-enabled following reload; an unattended/closed browser cannot be relied upon to ring.
+
+For HA notifications or a physical siren, copy the two YAML blueprints from [`blueprints/automation/tenmicron/`](../blueprints/automation/tenmicron/) into `/config/blueprints/automation/tenmicron/`, reload automations and create an automation using the imported blueprint. See the [full Alarm Guide](ALARMS.md). **Neither blueprint moves the telescope.**
+
 ## 3. Configuration
 
 | Setting | Meaning |
