@@ -39,6 +39,31 @@ The 10Micron integration does **not** play audio by itself. Optional components:
 
 See [Alarm instructions – English and Czech](docs/ALARMS.md) for exact manual installation and configuration. HACS installation of the Python integration does **not** automatically install the card or blueprints.
 
+## What can I download? (integration, alarms and dashboards)
+
+The [v0.7.2 pre-release](https://github.com/Z0472/ha-10micron-mount/releases/tag/v0.7.2) contains a versioned ZIP package and checksum file.
+
+| Package component | Location in this repository | How to use it |
+| --- | --- | --- |
+| **Mount monitor integration** | [`custom_components/tenmicron_mount/`](custom_components/tenmicron_mount/) | Copy into `/config/custom_components/tenmicron_mount/`; restart HA Core. Main integration supports NTP UTC checks/sync and refraction pressure/temperature updates, with writes disabled by default. |
+| **Optional dashboard alarm card** | [`www/tenmicron-alarm-card.js`](www/tenmicron-alarm-card.js) | Copy to `/config/www/`, register `/local/tenmicron-alarm-card.js?v=0.7.0` as a JavaScript module, then add the YAML card in [Alarm setup](docs/ALARMS.md). |
+| **Tracking-stop automation blueprint** | [`blueprints/automation/tenmicron/tracking_stop_alarm.yaml`](blueprints/automation/tenmicron/tracking_stop_alarm.yaml) | Copy to `/config/blueprints/automation/tenmicron/`; configure notification or siren actions in HA. |
+| **Connection-loss automation blueprint** | [`blueprints/automation/tenmicron/connection_lost_alarm.yaml`](blueprints/automation/tenmicron/connection_lost_alarm.yaml) | Same destination; configure a sustained unavailability alert. |
+| **Complete observatory cockpit/dashboard** | **Not included** | The author's private observatory dashboards and mechanical roof controls are intentionally not distributed. The public repository includes the **alarm card**, not a ready-to-import full Lovelace dashboard. |
+
+**The browser alarm card and blueprints are optional and must be installed separately.** HACS installation of the integration alone does not deploy these extras. The alarm card requires an open, awake browser and explicit sound activation; it is not a guaranteed unattended safety alarm.
+
+### Quick start for first-time users
+
+1. Download the v0.7.2 ZIP from [Releases](https://github.com/Z0472/ha-10micron-mount/releases/tag/v0.7.2), or download the repository source ZIP.
+2. Copy the complete `custom_components/tenmicron_mount` directory, including `translations/` and `brand/`, into `/config/custom_components/` and restart Home Assistant Core.
+3. In **Settings → Devices & services → Add integration**, choose **10Micron Mount Monitor**. Enter the mount's IP and TCP port (normally 3492).
+4. Confirm read-only mount state and Alt/Az telemetry. Then, if needed, configure **Enable clock functions** with NTP servers and/or **Enable refraction preview/control** with two real Home Assistant temperature and pressure sensors.
+5. Test **Check mount clock (no changes)** and **Preview refraction update (no changes)**, as applicable. Leave **native writes** and **automatic operations** OFF until you have disabled all competing time/refraction writers and reviewed the complete [English User Guide](docs/USER_GUIDE_EN.md).
+6. Optionally install the separate browser alarm card and automation blueprints by following [Alarm setup](docs/ALARMS.md). These are not required for the monitor.
+
+**Safety distinction:** Unlike the author's private observatory implementation, this standalone public edition has no PARK, GoTo, roof, shutter or other movement commands. The optional PARK reference only compares reported Alt/Az against a reference.
+
 ## Manual installation (without HACS)
 
 For a complete installation walkthrough, start with the [Czech guide](docs/USER_GUIDE_CS.md) or [English guide](docs/USER_GUIDE_EN.md).
