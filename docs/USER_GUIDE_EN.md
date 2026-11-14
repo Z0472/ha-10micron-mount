@@ -53,6 +53,49 @@ volume: 0.08
 
 For HA notifications or a physical siren, copy the two YAML blueprints from [`blueprints/automation/tenmicron/`](../blueprints/automation/tenmicron/) into `/config/blueprints/automation/tenmicron/`, reload automations and create an automation using the imported blueprint. See the [full Alarm Guide](ALARMS.md). **Neither blueprint moves the telescope.**
 
+## 2B. Meridian Monitor card
+
+![10Micron Meridian Monitor — illustrative example data](images/meridian-monitor-example.svg)
+
+**This visual is a simulated example, not a live telescope screenshot.** The actual card reads your mount telemetry via Home Assistant and **does not issue commands**.
+
+The optional `www/tenmicron-meridian-card.js` shows remaining minutes to meridian transit (when still approaching), estimated minutes to tracking end, mount pier side, unattended-flip setting, hour angle, allowed side, meridian tracking/slew limits and minimum GoTo altitude. The alarm state distinguishes tracking-end warnings at 30 and 5 minutes from transit warnings.
+
+1. Copy `www/tenmicron-meridian-card.js` to `/config/www/tenmicron-meridian-card.js`.
+2. In HA **Settings → Dashboards → Resources**, add `/local/tenmicron-meridian-card.js?v=0.1.0` as a **JavaScript module**. If `/config/www/` was newly created, restart HA Core.
+3. Create a **Manual** Lovelace card:
+
+```yaml
+type: custom:tenmicron-meridian-card
+title: 10Micron Meridian Monitor
+```
+
+The default guesses use common English entity slugs, but actual entity IDs can vary between installations. The card displays a warning instead of inventing missing values. You may explicitly map each sensor in the card YAML, for example:
+
+```yaml
+type: custom:tenmicron-meridian-card
+title: 10Micron Meridian Monitor
+entities:
+  transit: sensor.YOUR_ACTUAL_MERIDIAN_TRANSIT_ENTITY
+  end: sensor.YOUR_ACTUAL_TRACKING_END_ENTITY
+  pier: sensor.YOUR_ACTUAL_PIER_SIDE_ENTITY
+  flip: binary_sensor.YOUR_ACTUAL_UNATTENDED_FLIP_ENTITY
+  allowed: sensor.YOUR_ACTUAL_ALLOWED_SIDE_ENTITY
+  angle: sensor.YOUR_ACTUAL_HOUR_ANGLE_ENTITY
+  trackLimit: sensor.YOUR_ACTUAL_TRACK_LIMIT_ENTITY
+  slewLimit: sensor.YOUR_ACTUAL_SLEW_LIMIT_ENTITY
+  horizon: sensor.YOUR_ACTUAL_HORIZON_LIMIT_ENTITY
+  state: sensor.YOUR_ACTUAL_MOUNT_STATE_ENTITY
+  tracking: sensor.YOUR_ACTUAL_TRACKING_ACTIVE_ENTITY
+  transitSoon: binary_sensor.YOUR_ACTUAL_TRANSIT_WARNING_ENTITY
+  endSoon: binary_sensor.YOUR_ACTUAL_TRACK_END_WARNING_ENTITY
+  endCritical: binary_sensor.YOUR_ACTUAL_TRACK_END_CRITICAL_ENTITY
+```
+
+Find the real IDs in **Settings → Devices & services → 10Micron Mount Monitor → Entities** or **Developer tools → States**, and replace every `YOUR_ACTUAL_...` placeholder.
+
+**Meridian transit is not flip time.** The mount's tracking-end estimate can also be controlled by the horizon limit. APT/ASCOM may initiate a flip at another time. The enabled unattended-flip flag is only a reported setting; it does not guarantee a flip will occur. This dashboard is not a safety interlock.
+
 ## 3. Configuration
 
 | Setting | Meaning |
